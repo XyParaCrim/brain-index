@@ -10,11 +10,11 @@
 ## 二分法
 
 ### 思路
- 因为题目出现400次调用API，且坐标系长度为1000，基本可以判断出log的关系。
+ 因为题目出现`400`次调用API，且坐标系长度为`1000`，基本可以判断出log的关系。
  
- - 判断topRight和bottomLeft区域是否有船，若没有返回0
- - 判断topRight和bottomLeft区域是否是一个点，若是返回1
- - 判断topRight和bottomLeft区域里是x轴范围大还是y轴范围大，选择区域更大的切分
+ - 判断`topRight`和`bottomLeft`区域是否有船，若没有返回`0`
+ - 判断`topRight`和`bottomLeft`区域是否是一个点，若是返回`1`
+ - 判断`topRight`和`bottomLeft`区域里是x轴范围大还是y轴范围大，选择区域更大的切分
  - 若x轴范围大，左右切分；若y轴范围大，上下切分，返回两个切分区域的船只数
  
 ### 代码
