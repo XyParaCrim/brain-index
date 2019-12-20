@@ -1,0 +1,8 @@
+cluster.name: elastic
+node.name: backup
+node.master: true
+node.data: true
+http.port: 9200
+network.host: backup
+cluster.initial_master_nodes: ["master", "backup", "vote-only"]
+discovery.seed_hosts: ["master:9300", "backup:9300", "vote-only:9300"]

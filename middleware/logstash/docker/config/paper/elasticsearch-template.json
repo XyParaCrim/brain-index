@@ -1,0 +1,21 @@
+{
+  "order" : 1999,
+  "index_patterns" : [
+    "mysql-social-paper"
+  ],
+  "aliases": {},
+  "mappings": {
+    "dynamic": "true",
+    "properties": {
+      "type": {
+        "type": "keyword"
+      },
+      "file_name": {
+        "type": "text",
+        "index": true,
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_max_word"
+      }
+    }
+  }
+}

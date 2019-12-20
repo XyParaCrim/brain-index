@@ -1,0 +1,49 @@
+version: '3'
+services:
+  master:
+    build: .
+    image: redis-mock
+    user: ifcp
+    hostname: master
+    ports:
+      - 6379:6379
+    volumes:
+      - ./conf/sentinel.master.conf:/home/ifcp/redis/conf/sentinel.external.conf
+      - ./conf/redis.master.conf:/home/ifcp/redis/conf/redis.external.conf
+    command:
+          - /bin/sh
+          - -c
+          - |
+            cp /home/ifcp/redis/conf/redis.external.conf /home/ifcp/redis/conf/redis.conf
+            cp /home/ifcp/redis/conf/sentinel.external.conf /home/ifcp/redis/conf/sentinel.conf
+            ifcp_redis_start.sh
+    networks:
+      - commonnet
+    sysctls:
+      - net.core.somaxconn=1024
+  backup:
+    build: .
+    image: redis-mock
+    user: ifcp
+    hostname: backup
+    ports:
+      - 6380:6379
+    volumes:
+      - ./conf/sentinel.backup.conf:/home/ifcp/redis/conf/sentinel.external.conf
+      - ./conf/redis.backup.conf:/home/ifcp/redis/conf/redis.external.conf
+    command:
+      - /bin/sh
+      - -c
+      - |
+        cp /home/ifcp/redis/conf/redis.external.conf /home/ifcp/redis/conf/redis.conf
+        cp /home/ifcp/redis/conf/sentinel.external.conf /home/ifcp/redis/conf/sentinel.conf
+        ifcp_redis_start.sh
+    networks:
+      - commonnet
+    links:
+      - master
+    sysctls:
+      - net.core.somaxconn=1024
+networks:
+  commonnet:
+    driver: bridge

@@ -1,0 +1,34 @@
+{
+  "order": 2000,
+  "index_patterns" : [ "mysql-portal-domain" ],
+  "mappings": {
+    "dynamic": "true",
+    "properties": {
+      "domain_id": {
+        "type": "long",
+        "index": false,
+        "doc_values": false
+      },
+      "name": {
+        "type": "text",
+        "analyzer": "ik_max_word"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "ik_max_word"
+      },
+      "district_code": {
+        "type": "keyword"
+      },
+      "type": {
+        "type": "keyword"
+      },
+      "area_id": {
+        "type": "keyword"
+      },
+      "perm_type": {
+        "type": "keyword"
+      }
+    }
+  }
+}

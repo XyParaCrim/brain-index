@@ -1,0 +1,15 @@
+{
+  "order" : 1999,
+  "index_patterns" : [
+    "mysql-social-document"
+  ],
+  "aliases": {},
+  "mappings": {
+    "dynamic": "true",
+    "properties": {
+      "service_code": {
+        "type": "keyword"
+      }
+    }
+  }
+}
