@@ -9,6 +9,8 @@ What algorithm is not important, the way to solve the problem is the most import
 
 * [x] [矩形内船只数](https://github.com/XyParaCrim/brain-index/tree/master/algorithms/leet-code/ship-count) 
 * [x] [正则表达式匹配](https://github.com/XyParaCrim/brain-index/tree/master/algorithms/leet-code/regular-expression-matching)
+* [x] [最大得分的路径数目](https://github.com/XyParaCrim/brain-index/tree/master/algorithms/leet-code/number-of-paths-with-max-score)
+
 
 # Middleware
 
