@@ -26,12 +26,21 @@ public interface RegularExpressionMatching {
     }
 
     /**
-     * 现实清晰的有限状态机
+     * 实现清晰的有限状态机
      *
      * @return 正则表达式匹配算法实现
      */
     static RegularExpressionMatching nfaOfExplicit() {
         return new ExplicitNFA();
+    }
+
+    /**
+     * 实现清晰的动态规划
+     *
+     * @return 正则表达式匹配算法实现
+     */
+    static RegularExpressionMatching dynamicProgramming() {
+        return new DynamicProgramming();
     }
 
 }
