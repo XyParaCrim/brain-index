@@ -1,0 +1,8 @@
+aa, a, "false"
+ab, .*, "true"
+aab, c*a*b, "true"
+mississippi, mis*is*p*., "false"
+absbebuuuiobe, a.*be, "true"
+aaa, a*a, "true"
+aaa, aaaa, "false"
+aaa, ab*a*c*a, "true"
