@@ -21,6 +21,11 @@
 
     <modules>
         <module>regular-expression-matching</module>
+        <module>create-target-array-in-the-given-order</module>
+        <module>algorithms-support</module>
+        <module>four-divisors</module>
+        <module>check-if-there-is-a-valid-path-in-a-grid</module>
+        <module>longest-happy-prefix</module>
     </modules>
 
     <dependencyManagement>
