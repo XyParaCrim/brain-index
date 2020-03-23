@@ -5,8 +5,14 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.function.IntUnaryOperator;
 
+/**
+ * 深度优先算法实现典型搜索题目：边界考虑
+ */
 class BreathFirstSearch implements CheckIfThereIsAValidPathInAGrid {
 
+    /**
+     * 定义不同街道的方向，其中成员变量是为了方便计算坐标
+     */
     enum Direction {
         UP(row -> row - 1, IntUnaryOperator.identity()),
         DOWN(row -> row + 1, IntUnaryOperator.identity()),
@@ -14,16 +20,21 @@ class BreathFirstSearch implements CheckIfThereIsAValidPathInAGrid {
         LEFT(IntUnaryOperator.identity(), column -> column - 1);
 
         final IntUnaryOperator nextRow;
-
         final IntUnaryOperator nexColumn;
 
+        /**
+         * @param nextRow 计算在这个方向上的下一个纵坐标
+         * @param nexColumn 计算在这个方向上的下一个横坐标
+         */
         Direction(IntUnaryOperator nextRow, IntUnaryOperator nexColumn) {
             this.nextRow = nextRow;
             this.nexColumn = nexColumn;
         }
     }
 
-    private static Map<Direction, Map<Integer, Direction>> directionMapMap = new HashMap<>(4);
+    // 初始化一个方向表：
+    //   in方向 -> 支持该输入方向的所有街道 -> 对应街道支持的out方向
+    private static Map<Direction, Map<Integer, Direction>> directionTable = new HashMap<>(4);
     static {
         Map<Integer, Direction> up = new HashMap<>(3);
         up.put(2, Direction.UP);
@@ -45,40 +56,55 @@ class BreathFirstSearch implements CheckIfThereIsAValidPathInAGrid {
         right.put(3, Direction.DOWN);
         right.put(5, Direction.UP);
 
-        directionMapMap.put(Direction.UP, up);
-        directionMapMap.put(Direction.DOWN, down);
-        directionMapMap.put(Direction.RIGHT, right);
-        directionMapMap.put(Direction.LEFT, left);
-
+        directionTable.put(Direction.UP, up);
+        directionTable.put(Direction.DOWN, down);
+        directionTable.put(Direction.RIGHT, right);
+        directionTable.put(Direction.LEFT, left);
     }
 
-    static class Position {
+    /**
+     * 搜索的单元节点
+     */
+    static class Street implements Comparable<Street> {
 
+        /** 纵坐标 */
         final int row;
 
+        /** 横坐标 */
         final int column;
 
-        final Direction input;
+        /** 进入街道方向 */
+        final Direction in;
 
-        final Direction output;
+        /** 出去街道方向 */
+        final Direction out;
 
-        public Position(Direction input, Direction output) {
-            this(0, 0, input, output);
+        /** 离远点的距离，用于优先队列排序 */
+        final int distance;
+
+        public Street(Direction in, Direction out) {
+            this(0, 0, in, out);
         }
 
-        public Position(int row, int column, Direction input, Direction output) {
+        public Street(int row, int column, Direction in, Direction out) {
             this.row = row;
             this.column = column;
-            this.input = input;
-            this.output = output;
+            this.in = in;
+            this.out = out;
+            this.distance = row + column;
         }
 
         public int nextRow() {
-            return output.nextRow.applyAsInt(row);
+            return out.nextRow.applyAsInt(row);
         }
 
         public int nextColumn() {
-            return output.nexColumn.applyAsInt(column);
+            return out.nexColumn.applyAsInt(column);
+        }
+
+        @Override
+        public int compareTo(Street o) {
+            return distance - o.distance;
         }
     }
 
@@ -91,52 +117,61 @@ class BreathFirstSearch implements CheckIfThereIsAValidPathInAGrid {
             return true;
         }
 
-        PriorityQueue<Position> queue = new PriorityQueue<>(rows * columns);
+        PriorityQueue<Street> queue = new PriorityQueue<>(rows * columns);
         boolean[][] walked = new boolean[rows][columns];
 
+        // 分析左上街道，支持的方向
         switch (grid[0][0]) {
             case 1:
-                queue.add(new Position(Direction.LEFT, Direction.LEFT));
-                break;
-            case 6:
-                queue.add(new Position(Direction.DOWN, Direction.RIGHT));
+                queue.add(new Street(Direction.RIGHT, Direction.RIGHT));
                 break;
             case 2:
-                queue.add(new Position(Direction.DOWN, Direction.DOWN));
+                queue.add(new Street(Direction.DOWN,  Direction.DOWN ));
                 break;
             case 3:
-                queue.add(new Position(Direction.LEFT, Direction.DOWN));
+                queue.add(new Street(Direction.RIGHT,  Direction.DOWN ));
                 break;
             case 4:
-                queue.add(new Position(Direction.UP, Direction.RIGHT));
-                queue.add(new Position(Direction.LEFT, Direction.DOWN));
+                queue.add(new Street(Direction.UP,    Direction.RIGHT));
+                queue.add(new Street(Direction.LEFT,  Direction.DOWN ));
+                break;
+            case 6:
+                queue.add(new Street(Direction.DOWN,  Direction.RIGHT));
         }
 
+        // 经典搜索公式
         while (!queue.isEmpty()) {
+            Street street = queue.poll();
 
-            Position position = queue.poll();
+            // 标记是否已经搜索过
+            walked[street.row][street.column] = true;
 
-            walked[position.row][position.column] = true;
+            int nextRow = street.nextRow();
+            int nextColumn = street.nextColumn();
 
-            int nextRow = position.nextRow();
-            int nextColumn = position.nextColumn();
-
+            // 判断是否出界且是否搜索过
             if (nextColumn >= 0 && nextColumn < columns && nextRow >= 0 && nextRow < rows && !walked[nextRow][nextColumn]) {
 
-                Direction output = directionMapMap.get(position.output).get(grid[nextRow][nextColumn]);
+                //当前街道的出去方向，即下一个街道的输入方向
+                // 获取下一个街道的出去方向
+                Direction nextIn = street.out;
+                Direction nextOut = directionTable.
+                        // 支持该入口方向的所有街道
+                        get(nextIn).
+                        // 下个一街道是否有出口
+                        get(grid[nextRow][nextColumn]);
 
-                if (output != null) {
+                if (nextOut != null) {
 
                     if (nextRow == rows - 1 && nextColumn == columns - 1) {
                         return true;
                     }
 
-                    queue.add(new Position(nextRow, nextColumn, position.output, output));
+                    queue.add(new Street(nextRow, nextColumn, nextIn, nextOut));
 
                 }
 
             }
-
 
         }
 

@@ -11,6 +11,8 @@
 
     <artifactId>longest-happy-prefix</artifactId>
 
+    <description>Leetcode: 检查网格中是否存在有效路径</description>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
