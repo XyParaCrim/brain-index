@@ -1,15 +1,14 @@
-矩形内船只数
-======================
+# 矩形内船只数
 
 - [题目链接](https://leetcode-cn.com/problems/number-of-ships-in-a-rectangle/solution/gen-ju-ti-mu-shu-ju-pan-duan-jie-ti-fang-fa-by-xyp/)
 
-# 解决方法
+## 解决方法
 
 `二分法`
 
-## 二分法
+### 二分法
 
-### 思路
+#### 思路
  因为题目出现`400`次调用API，且坐标系长度为`1000`，基本可以判断出log的关系。
  
  - 判断`topRight`和`bottomLeft`区域是否有船，若没有返回`0`
@@ -17,7 +16,7 @@
  - 判断`topRight`和`bottomLeft`区域里是x轴范围大还是y轴范围大，选择区域更大的切分
  - 若x轴范围大，左右切分；若y轴范围大，上下切分，返回两个切分区域的船只数
  
-### 代码
+#### 代码
  ```java
 @SuppressWarnings("unused")
 class Solution {
@@ -40,6 +39,6 @@ class Solution {
 }
 ```
     
-### 运行情况
+#### 运行情况
 执行用时：`1 ms`
 

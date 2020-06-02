@@ -26,6 +26,11 @@
         <module>four-divisors</module>
         <module>check-if-there-is-a-valid-path-in-a-grid</module>
         <module>longest-happy-prefix</module>
+        <module>algorithms-archetypes</module>
+        <module>find-lucky-interger-in-an-array</module>
+        <module>count-number-of-teams</module>
+        <module>design-underground-system</module>
+        <module>finds-all-good-strings</module>
     </modules>
 
     <dependencyManagement>
