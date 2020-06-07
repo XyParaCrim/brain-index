@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-local-service
+spec:
+  ports:
+    - name: mysql-service
+      port: 3306
+    - name: mysql-rep
+      port: 33061
+  clusterIP: None
+  selector:
+    server: mysql

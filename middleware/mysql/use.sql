@@ -1,0 +1,7 @@
+SET SQL_LOG_BIN=0;
+CREATE USER xyparacrim_rep@'%' IDENTIFIED BY '110120';
+GRANT REPLICATION SLAVE ON *.* TO xyparacrim_rep@'%';
+GRANT BACKUP_ADMIN ON *.* TO xyparacrim_rep@'%';
+FLUSH PRIVILEGES;
+SET SQL_LOG_BIN=1;
+CHANGE MASTER TO MASTER_USER='xyparacrim_rep', MASTER_PASSWORD='110120' FOR CHANNEL 'group_replication_recovery';
