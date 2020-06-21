@@ -65,6 +65,8 @@ class Solution implements FindsAllGoodStrings {
             return exclude(max, newMin, exclude, high - 1) + exclude(newMax, min, exclude, high - 1);
         }
 
+        // TODO
+        throw new RuntimeException();
     }
 
     private static int hashCode(String source, int i, int j) {
