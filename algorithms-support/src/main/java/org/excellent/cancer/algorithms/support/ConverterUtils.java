@@ -46,6 +46,120 @@ public final class ConverterUtils {
     }
 
     /**
+     * 将字符串转化为字符矩阵，即二维数组
+     *
+     * @param source 输入数组字符串
+     * @return 转化为字符矩阵
+     */
+    public static char[][] readPrimitiveCharMatrix(String source) {
+        int depth = 0; // 表示发现左括号的次数，符号栈的深度
+        int i = -1;     // 表示当前遍历的索引
+        boolean spilt = false; // 数组之间是否已经逗号分割
+
+        LinkedList<char[]> arrays = new LinkedList<>();
+
+        while (++i < source.length()) {
+            // 处理只遇到[符号0～1次的情况，即还未需要编译整数数值
+            if (depth < 2) {
+                switch (source.charAt(i)) {
+                    case ' ': break;
+                    case ',':
+                        if (spilt && !arrays.isEmpty()) {
+                            throwForRepeatSeparator();
+                        }
+                        spilt = true;
+                        break;
+                    case '[':
+                        depth++;
+                        break;
+                    case ']':
+                        if (depth > 0) {
+                            depth--;
+                            break;
+                        }
+                        // 其他情况抛出异常
+                    default:
+                        throwForParenthesesException();
+                }
+            }
+
+            // 处理需要读数组的阶段
+            else {
+
+                // 当不是数组第一项且没有分隔符的情况
+                if (!spilt && !arrays.isEmpty()) {
+                    throwForNoneSeparator();
+                }
+
+                i = skipSpaceWhite(source, i);
+
+                // 处理无数值的数组
+                if (source.charAt(i) == ']') {
+                    char[] newArray = new char[0];
+                    if (arrays.isEmpty() || arrays.peek().length == newArray.length) {
+                        depth--;
+                        spilt = false;
+                        arrays.add(newArray);
+
+                        continue;
+                    }
+
+                    throwForDifferentArrayLength();
+                }
+
+                // 正式进入读取数值
+
+                StringBuilder builder = new StringBuilder();
+
+                while (true) {
+                    // 跳过空白
+
+                    i = skipSpaceWhite(source, i);
+
+                    // 读出下一个数字
+                    char value =  source.substring(i, i = nextInt(source, i)).charAt(0);
+
+                    builder.append(value);
+
+                    i = skipSpaceWhite(source, i);
+
+                    if (i < source.length()) {
+
+                        if (source.charAt(i) == ',') {
+                            i++;
+                            continue;
+                        }
+
+                        if (source.charAt(i) == ']') {
+                            depth--;
+                            spilt = false;
+                            char[] newArray = builder.toString().toCharArray();
+                            if (arrays.isEmpty() || arrays.peek().length == newArray.length) {
+                                arrays.add(newArray);
+                                break;
+                            }
+
+                            throwForDifferentArrayLength();
+                        }
+                    }
+
+                    throwForOthers();
+                }
+
+
+            }
+        }
+
+        if (depth != 0) {
+            throwForOthers();
+        }
+
+        int length = arrays.isEmpty() ? 0 : arrays.peek().length;
+
+        return arrays.toArray(size -> new char[size][length]);
+    }
+
+    /**
      * 将字符串转化为整型矩阵，即二维数组
      *
      * @param source 输入数组字符串

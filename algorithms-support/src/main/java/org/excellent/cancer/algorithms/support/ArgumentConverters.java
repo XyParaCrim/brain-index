@@ -4,9 +4,6 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.converter.ArgumentConverter;
 
-import java.util.function.Function;
-import java.util.function.Supplier;
-
 import static org.excellent.cancer.algorithms.support.ConverterUtils.readPrimitiveIntArrayQuietly;
 import static org.excellent.cancer.algorithms.support.ConverterUtils.requireSpecifiedType;
 
@@ -62,6 +59,22 @@ public final class ArgumentConverters {
                 requireSpecifiedType(parameterContext, int[][].class);
 
                 return ConverterUtils.readPrimitiveIntMatrix(String.valueOf(o));
+            } catch (ArgumentConversionException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new ArgumentConversionException("无法转换成字符串矩阵", e);
+            }
+        }
+    }
+
+    public static class OfCharMaxtrix implements ArgumentConverter {
+
+        @Override
+        public Object convert(Object o, ParameterContext parameterContext) throws ArgumentConversionException {
+            try {
+                requireSpecifiedType(parameterContext, char[][].class);
+
+                return ConverterUtils.readPrimitiveCharMatrix(String.valueOf(o));
             } catch (ArgumentConversionException e) {
                 throw e;
             } catch (Exception e) {

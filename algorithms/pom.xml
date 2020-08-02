@@ -29,6 +29,7 @@
         <module>unique-paths</module>
         <module>unique-paths2</module>
         <module>minimum-path-sum</module>
+        <module>maximal-rectangle</module>
         <!--        <module>create-target-array-in-the-given-order</module>
                 <module>four-divisors</module>
                 <module>check-if-there-is-a-valid-path-in-a-grid</module>
