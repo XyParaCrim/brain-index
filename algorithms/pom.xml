@@ -21,16 +21,16 @@
 
     <modules>
         <module>regular-expression-matching</module>
-        <module>create-target-array-in-the-given-order</module>
-        <module>algorithms-support</module>
+        <module>maximum-subarray</module>
+        <module>unique-paths</module>
+<!--        <module>create-target-array-in-the-given-order</module>
         <module>four-divisors</module>
         <module>check-if-there-is-a-valid-path-in-a-grid</module>
         <module>longest-happy-prefix</module>
-        <!--<module>find-lucky-interger-in-an-array</module>-->
+        <module>find-lucky-interger-in-an-array</module>
         <module>count-number-of-teams</module>
         <module>design-underground-system</module>
-        <module>finds-all-good-strings</module>
-        <module>maximum-subarray</module>
+        <module>finds-all-good-strings</module>-->
     </modules>
 
     <dependencyManagement>
@@ -43,7 +43,7 @@
             </dependency>
             <dependency>
                 <groupId>org.excellent-cancer</groupId>
-                <artifactId>alogrithms-support</artifactId>
+                <artifactId>algorithms-support</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
