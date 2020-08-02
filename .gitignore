@@ -136,12 +136,3 @@ buildNumber.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-
-/middleware/redis/docker/dependencies/dependencies.tar
-/middleware/elasticsearch/docker/source/elasticsearch-analysis-ik-7.3.0.tar
-/middleware/fastdfs/docker/source/fastdfs-5.11.tar
-/middleware/fastdfs/docker/source/fastdfs-nginx-module-1.20.tar
-/middleware/fastdfs/docker/dependencies/dependencies.tar
-/middleware/logstash/docker/source/mysql-connector-java.tar
-/middleware/logstash/docker/dependencies/dependencies.tar
-/middleware/redis/docker/source/redis-4.0.14.tar
