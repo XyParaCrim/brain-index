@@ -21,4 +21,4 @@ jobs:
       with:
         java-version: 11
     - name: Build with Maven
-      run: mvn -B test --file algorithms/leet-code/pom.xml
+      run: mvn -B test --file algorithms/pom.xml
