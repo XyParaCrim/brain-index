@@ -11,7 +11,7 @@
         <relativePath>../</relativePath>
     </parent>
 
-    <artifactId>unique-paths</artifactId>
+    <artifactId>unique-paths2</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -19,6 +19,11 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.excellent-cancer</groupId>
+            <artifactId>algorithms-support</artifactId>
         </dependency>
     </dependencies>
 
