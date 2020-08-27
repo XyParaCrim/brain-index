@@ -4,8 +4,7 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.converter.ArgumentConverter;
 
-import static org.excellent.cancer.algorithms.support.ConverterUtils.readPrimitiveIntArrayQuietly;
-import static org.excellent.cancer.algorithms.support.ConverterUtils.requireSpecifiedType;
+import static org.excellent.cancer.algorithms.support.ConverterUtils.*;
 
 /**
  * CVS参数转换器
@@ -28,6 +27,19 @@ public final class ArgumentConverters {
             } catch (NumberFormatException e) {
                 throw new ArgumentConversionException("无法将字符串转换成数字", e);
             }
+        }
+    }
+
+    /**
+     * 将字符串转换为字符串数组
+     */
+    public static class OfStringArray implements ArgumentConverter {
+
+        @Override
+        public Object convert(Object o, ParameterContext parameterContext) throws ArgumentConversionException {
+            requireSpecifiedType(parameterContext, String[].class);
+
+            return readStringArray(String.valueOf(o));
         }
     }
 
@@ -67,7 +79,7 @@ public final class ArgumentConverters {
         }
     }
 
-    public static class OfCharMaxtrix implements ArgumentConverter {
+    public static class OfCharMatrix implements ArgumentConverter {
 
         @Override
         public Object convert(Object o, ParameterContext parameterContext) throws ArgumentConversionException {

@@ -11,7 +11,7 @@ public class MaximalRectangleTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/test-case.csv")
     @DisplayName("动态规划")
-    public void testSolution(@ConvertWith(ArgumentConverters.OfCharMaxtrix.class) char[][] matrix, int expected) {
+    public void testSolution(@ConvertWith(ArgumentConverters.OfCharMatrix.class) char[][] matrix, int expected) {
         Assertions.assertEquals(expected, MaximalRectangle.solution(matrix));
     }
 

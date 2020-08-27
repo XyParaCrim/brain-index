@@ -46,6 +46,16 @@ public final class ConverterUtils {
     }
 
     /**
+     * 默认输入字符串是按照正确格式输入的字符串数组
+     *
+     * @param source 默认输入字符串
+     * @return 默认输入字符串是按照正确格式输入的字符串数组
+     */
+    public static String[] readStringArray(String source) {
+        return Stream.of(unwrapArray(source).split(ARRAY_SPILT)).toArray(String[]::new);
+    }
+
+    /**
      * 将字符串转化为字符矩阵，即二维数组
      *
      * @param source 输入数组字符串

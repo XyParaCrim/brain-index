@@ -30,6 +30,9 @@
         <module>unique-paths2</module>
         <module>minimum-path-sum</module>
         <module>maximal-rectangle</module>
+        <module>scramble-string</module>
+        <module>longest-palindromic-substring</module>
+        <module>interleaving-string</module>
         <!--        <module>create-target-array-in-the-given-order</module>
                 <module>four-divisors</module>
                 <module>check-if-there-is-a-valid-path-in-a-grid</module>
@@ -61,6 +64,20 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.excellent-cancer</groupId>
+            <artifactId>algorithms-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -74,11 +91,23 @@
                 </plugin>
 
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
